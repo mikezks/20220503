@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 
 // Von der CLI eingefügt
 import { CityValidationDirective } from './validation/city-validation.directive';
+import { DateCvaDirective } from './date-directive/date-cva.directive';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { CityValidationDirective } from './validation/city-validation.directive'
   ],
   declarations: [
     DateComponent,
+    DateCvaDirective,
     CityPipe,
     StatusColorPipe,
     StatusFilterPipe,
@@ -27,6 +29,7 @@ import { CityValidationDirective } from './validation/city-validation.directive'
   ],
   exports: [
     DateComponent,
+    DateCvaDirective,
     CityPipe,
     StatusColorPipe,
     StatusFilterPipe,
