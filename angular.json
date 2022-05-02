@@ -4,6 +4,8 @@
     "dashboard": "apps/dashboard",
     "dashboard-e2e": "apps/dashboard-e2e",
     "dashboard-lib": "libs/dashboard-lib",
+    "deep-dive": "apps/deep-dive",
+    "deep-dive-e2e": "apps/deep-dive-e2e",
     "external": "apps/external",
     "external-e2e": "apps/external-e2e",
     "flight-admin": "apps/flight-admin",

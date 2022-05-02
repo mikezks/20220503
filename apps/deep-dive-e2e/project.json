@@ -1,0 +1,28 @@
+{
+  "root": "apps/deep-dive-e2e",
+  "sourceRoot": "apps/deep-dive-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/deep-dive-e2e/cypress.json",
+        "devServerTarget": "deep-dive:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "deep-dive:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/deep-dive-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["deep-dive"]
+}

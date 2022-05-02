@@ -1,0 +1,97 @@
+{
+  "projectType": "application",
+  "root": "apps/deep-dive",
+  "sourceRoot": "apps/deep-dive/src",
+  "prefix": "flight-workspace",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/deep-dive",
+        "index": "apps/deep-dive/src/index.html",
+        "main": "apps/deep-dive/src/main.ts",
+        "polyfills": "apps/deep-dive/src/polyfills.ts",
+        "tsConfig": "apps/deep-dive/tsconfig.app.json",
+        "assets": [
+          "apps/deep-dive/src/favicon.ico",
+          "apps/deep-dive/src/assets"
+        ],
+        "styles": [
+          "apps/deep-dive/src/assets/paper-design/bootstrap.css",
+          "node_modules/@angular-architects/paper-design/assets/scss/paper-dashboard.scss",
+          "apps/deep-dive/src/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/deep-dive/src/environments/environment.ts",
+              "with": "apps/deep-dive/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "deep-dive:build:production"
+        },
+        "development": {
+          "browserTarget": "deep-dive:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "deep-dive:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/deep-dive/src/**/*.ts",
+          "apps/deep-dive/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/deep-dive"],
+      "options": {
+        "jestConfig": "apps/deep-dive/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["domain:flights", "type:app"]
+}
