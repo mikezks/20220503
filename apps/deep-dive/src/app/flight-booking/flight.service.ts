@@ -1,48 +1,37 @@
 // src/app/default-flight.service.ts
 
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { BASE_URL } from '../app.token';
+import { DefaultFlightService } from './default-flight.service';
+import { DummyFlightService } from './dummy-flight.service';
 import { Flight } from './flight';
 
-@Injectable(/* {
-  providedIn: 'root'
-} */)
-export class FlightService {
+@Injectable({
+  providedIn: 'root',
+  useFactory: (http: HttpClient, baseUrl: string) => {
+    if (environment.flightServiceType === 'http') {
+      return new DefaultFlightService(http, baseUrl);
+    } else {
+      return new DummyFlightService();
+    }
+  },
+  // useClass: DefaultFlightService,
+  deps: [
+    HttpClient,
+    [Inject, BASE_URL]
+  ]
+})
+export abstract class FlightService {
 
   // We will refactor this to an observable in a later exercise!
   flights: Flight[] = [];
 
-  constructor(private http: HttpClient) { }
+  abstract load(from: string, to: string): void;
 
-  load(from: string, to: string): void {
-    this.find(from, to).subscribe({
-      next: (flights) => {
-        this.flights = flights;
-      },
-      error: (err) => {
-        console.error('error', err);
-      }
-    });
-  }
+  abstract find(from: string, to: string): Observable<Flight[]>;
 
-  find(from: string, to: string): Observable<Flight[]> {
-    const url = 'http://www.angular.at/api/flight';
-
-    const headers = new HttpHeaders()
-      .set('Accept', 'application/json');
-
-    const params = new HttpParams()
-      .set('from', from)
-      .set('to', to);
-
-    return this.http.get<Flight[]>(url, {headers, params});
-  }
-
-  delay(): void {
-    const date = new Date(this.flights[0].date);
-    date.setTime(date.getTime() + 1000 * 60 * 15);
-    this.flights[0].date = date.toISOString();
-  }
-
+  abstract delay(): void;
 }

@@ -1,13 +1,20 @@
 // src/app/flight-search/flight-search.component.ts
 
 import { Component, OnInit } from '@angular/core';
+import { DummyFlightService } from '../dummy-flight.service';
 import { Flight } from '../flight';
 import { FlightService } from '../flight.service';
 
 @Component({
   selector: 'app-flight-search',
   templateUrl: './flight-search.component.html',
-  styleUrls: ['./flight-search.component.scss']
+  styleUrls: ['./flight-search.component.scss'],
+  providers: [
+    /* {
+      provide: FlightService,
+      useClass: DummyFlightService
+    } */
+  ]
 })
 export class FlightSearchComponent implements OnInit {
 

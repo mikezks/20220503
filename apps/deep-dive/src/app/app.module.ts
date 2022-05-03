@@ -34,13 +34,13 @@ import { FlightService } from './flight-booking/flight.service';
       BasketComponent,
    ],
    providers: [
-      {
+      /* {
         provide: FlightService,
         useFactory: (http: HttpClient) => {
           return new FlightService(http);
         },
         deps: [HttpClient]
-      }
+      } */
    ],
    bootstrap: [
       AppComponent
