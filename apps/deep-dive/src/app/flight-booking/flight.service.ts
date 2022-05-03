@@ -5,9 +5,9 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Flight } from './flight';
 
-@Injectable({
+@Injectable(/* {
   providedIn: 'root'
-})
+} */)
 export class FlightService {
 
   // We will refactor this to an observable in a later exercise!

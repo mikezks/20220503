@@ -5,7 +5,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FlightBookingModule } from './flight-booking/flight-booking.module';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { APP_ROUTES } from './app.routes';
 import { SharedModule } from './shared/shared.module';
 import { BasketComponent } from './basket/basket.component';
+import { FlightService } from './flight-booking/flight.service';
 
 @NgModule({
    imports: [
@@ -32,7 +33,15 @@ import { BasketComponent } from './basket/basket.component';
       NotFoundComponent,
       BasketComponent,
    ],
-   providers: [],
+   providers: [
+      {
+        provide: FlightService,
+        useFactory: (http: HttpClient) => {
+          return new FlightService(http);
+        },
+        deps: [HttpClient]
+      }
+   ],
    bootstrap: [
       AppComponent
    ]
