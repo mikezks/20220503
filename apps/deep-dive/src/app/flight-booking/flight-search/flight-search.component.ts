@@ -10,6 +10,7 @@ import { FlightService } from '../flight.service';
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.scss'],
   providers: [
+    // FlightService
     /* {
       provide: FlightService,
       useClass: DummyFlightService

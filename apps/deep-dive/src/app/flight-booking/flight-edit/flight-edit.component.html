@@ -6,3 +6,50 @@
 <p>
     ShowDetail: {{id}}
 </p>
+
+<form [formGroup]="editForm">
+
+  <div class="form-group">
+    <label>ID:</label>
+    <input formControlName="id" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label>From:</label>
+    <input formControlName="from" class="form-control">
+  </div>
+  <div
+    *ngIf="editForm.controls.from.invalid"
+    class="alert alert-danger">
+    An error occurred within the From input.
+  </div>
+  <div
+    *ngIf="editForm.controls.from.hasError('required')"
+    class="alert alert-danger">
+    This is a mandatory field.
+  </div>
+  <div
+    *ngIf="editForm.controls.from.hasError('minlength')"
+    class="alert alert-danger">
+    Please enter at least 3 chars.
+  </div>
+
+  <div class="form-group">
+    <label>To:</label>
+    <input formControlName="to" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Date:</label>
+    <input formControlName="date" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <button
+      class="btn btn-default"
+      (click)="save()"
+      [disabled]="!editForm.valid">
+        Save
+    </button>
+  </div>
+
+</form>
