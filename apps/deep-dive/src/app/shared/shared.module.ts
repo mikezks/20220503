@@ -8,7 +8,6 @@ import { StatusColorPipe } from './status-color.pipe';
 import { StatusFilterPipe } from './status-filter.pipe';
 import { FormsModule } from '@angular/forms';
 
-// Von der CLI eingefügt
 import { CityValidationDirective } from './validation/city-validation.directive';
 import { DateCvaDirective } from './date-directive/date-cva.directive';
 
@@ -23,8 +22,6 @@ import { DateCvaDirective } from './date-directive/date-cva.directive';
     CityPipe,
     StatusColorPipe,
     StatusFilterPipe,
-
-    // Von der CLI eingefügt
     CityValidationDirective
   ],
   exports: [
@@ -35,8 +32,6 @@ import { DateCvaDirective } from './date-directive/date-cva.directive';
     StatusFilterPipe,
     FormsModule,
     CommonModule,
-
-    // Neue Einträge
     CityValidationDirective
   ]
 })

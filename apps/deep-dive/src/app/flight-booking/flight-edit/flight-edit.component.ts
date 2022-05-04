@@ -29,6 +29,10 @@ export class FlightEditComponent implements OnInit {
     this.editForm.valueChanges.subscribe(
       console.log
     );
+
+    this.editForm.patchValue({
+      id: 999
+    });
   }
 
   getInitialEditForm(): FormGroup {
@@ -46,7 +50,10 @@ export class FlightEditComponent implements OnInit {
           'Hamburg', 'London', 'Budapest'
         ])
       ]],
-      date: [new Date().toISOString()]
+      date: [new Date().toISOString()],
+      /* address: this.fb.group({
+
+      }) */
     });
   }
 
