@@ -3,7 +3,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { PreloadAllModules, RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
 import { APP_ROUTES } from './app.routes';
@@ -16,7 +16,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
    imports: [
-      RouterModule.forRoot(APP_ROUTES),
+      RouterModule.forRoot(APP_ROUTES, {
+        preloadingStrategy: PreloadAllModules
+      }),
       HttpClientModule,
       BrowserModule,
       // FlightBookingModule,
