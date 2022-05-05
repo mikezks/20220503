@@ -26,6 +26,10 @@ export class FlightEditComponent implements OnInit {
       this.showDetails = p.showDetails;
     });
 
+    this.route.data.subscribe(
+      console.log
+    );
+
     this.editForm.valueChanges.subscribe(
       console.log
     );

@@ -37,6 +37,18 @@
           </a>
         </li>
 
+        <li routerLinkActive="active">
+          <a [routerLink]="[{ outlets: { aux: 'basket' }}]">
+              <p>Show Basket</p>
+          </a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a [routerLink]="[{ outlets: { aux: null }}]">
+              <p>Close Basket</p>
+          </a>
+        </li>
+
       </ul>
   </div>
 

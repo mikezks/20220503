@@ -10,12 +10,14 @@ import { FLIGHT_BOOKING_ROUTES } from './flight-booking.routes';
 import { FlightBookingComponent } from './flight-booking.component';
 import { FlightEditComponent } from './flight-edit/flight-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlightApiModule } from './flight-api/flight-api.module';
 
 @NgModule({
   imports: [
     RouterModule.forChild(FLIGHT_BOOKING_ROUTES),
     FormsModule,
     ReactiveFormsModule,
+    FlightApiModule,
     SharedModule
   ],
   declarations: [
@@ -30,3 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ]
 })
 export class FlightBookingModule { }
+
+export const myState = {
+  selectedFlightId: 999
+};

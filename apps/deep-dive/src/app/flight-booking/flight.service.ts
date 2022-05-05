@@ -8,9 +8,10 @@ import { BASE_URL } from '../app.token';
 import { DefaultFlightService } from './default-flight.service';
 import { DummyFlightService } from './dummy-flight.service';
 import { Flight } from './flight';
+import { FlightApiModule } from './flight-api/flight-api.module';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: FlightApiModule,
   useFactory: (http: HttpClient, baseUrl: string) => {
     if (environment.flightServiceType === 'http') {
       return new DefaultFlightService(http, baseUrl);
