@@ -5,6 +5,8 @@ import { AboutComponent } from './about/about.component';
 import { BasketComponent } from './basket/basket.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { checkLazyLoaded } from './shared/router/utils-check-lazy-loading';
+
 
 export const APP_ROUTES: Routes = [
     {
@@ -18,8 +20,9 @@ export const APP_ROUTES: Routes = [
     },
     {
         path: 'flight-booking',
-        loadChildren: () => import('./flight-booking/flight-booking.module')
-          .then(esm => esm.FlightBookingModule),
+        loadChildren: () => checkLazyLoaded(
+            () => import('./flight-booking/flight-booking.module')
+          ).then(esm => esm.FlightBookingModule),
         data: {
           preload: true
         }
