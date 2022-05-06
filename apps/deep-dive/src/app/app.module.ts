@@ -8,6 +8,7 @@ import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
 import { APP_ROUTES } from './app.routes';
 import { BasketComponent } from './basket/basket.component';
+import { FlightBookingModule } from './flight-booking/flight-booking.module';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NotFoundComponent } from './not-found/not-found.component';
