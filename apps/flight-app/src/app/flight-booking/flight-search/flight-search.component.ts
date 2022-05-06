@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import {Component, OnInit} from '@angular/core';
-import {FlightService} from '@flight-workspace/flight-lib';
+import {Flight, FlightService} from '@flight-workspace/flight-lib';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromFlightBooking from '../+state';
 
 @Component({
   selector: 'flight-search',
@@ -13,10 +16,7 @@ export class FlightSearchComponent implements OnInit {
   from = 'Hamburg'; // in Germany
   to = 'Graz'; // in Austria
   urgent = false;
-
-  get flights() {
-    return this.flightService.flights;
-  }
+  flights$: Observable<Flight[]> = this.store.select(state => state.flightBooking.flights);
 
   // "shopping basket" with selected flights
   basket: { [id: number]: boolean } = {
@@ -25,7 +25,8 @@ export class FlightSearchComponent implements OnInit {
   };
 
   constructor(
-    private flightService: FlightService) {
+    private flightService: FlightService,
+    private store: Store<fromFlightBooking.FlightBookingRootState>) {
   }
 
   ngOnInit() {
@@ -35,11 +36,29 @@ export class FlightSearchComponent implements OnInit {
     if (!this.from || !this.to) return;
 
     this.flightService
-      .load(this.from, this.to, this.urgent);
+      .find(this.from, this.to, this.urgent)
+      .subscribe(
+        flights => this.store.dispatch(
+          fromFlightBooking.flightsLoaded({ flights })
+        )
+      );
   }
 
-  delay(): void {
-    this.flightService.delay();
+  delay(flight: Flight): void {
+    this.store.dispatch(
+      fromFlightBooking.flightUpdate({
+        flight: {
+          ...flight,
+          date: addMinutesToDate(flight.date, 15).toISOString(),
+          delayed: true
+        }
+      })
+    );
   }
-
 }
+
+
+export const addMinutesToDate = (date: Date | string, minutes: number): Date => {
+  const dateObj = date instanceof Date ? date : new Date(date);
+  return new Date(dateObj.getTime() + minutes * 60 * 1_000);
+};
