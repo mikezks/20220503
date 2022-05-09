@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CheckinFacade } from '@flight-workspace/luggage/domain';
 
+// Trainer was here again! :)
+
 @Component({
   selector: 'luggage-checkin',
   templateUrl: './checkin.component.html',
