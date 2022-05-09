@@ -1,10 +1,10 @@
 import { Component, Directive, EventEmitter, Input, Output, Pipe, PipeTransform } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { Flight, FlightService } from '@flight-workspace/flight-lib';
+import { provideMockStore } from '@ngrx/store/testing';
 import { Observable, of } from 'rxjs';
-import { Flight } from '../flight';
-import { FlightService } from '../flight.service';
+import { selectFlights } from '../+state';
 import { FlightSearchComponent } from './flight-search.component';
 
 
@@ -29,7 +29,7 @@ describe('Unit test: flight-search.component', () => {
   };
 
   // eslint-disable-next-line @angular-eslint/component-selector
-  @Component({ selector: 'app-flight-card', template: '' })
+  @Component({ selector: 'flight-card', template: '' })
   class FlightCardComponent {
     @Input() item: Flight | undefined;
     @Input() selected = false;
@@ -59,71 +59,33 @@ describe('Unit test: flight-search.component', () => {
         FlightCardComponent,
         CityPipe,
         CityValidatorDirective
-      ]
-    })
-      .overrideComponent(FlightSearchComponent, {
-        set: {
-          providers: [
+      ],
+      providers: [
+        {
+          provide: FlightService,
+          useValue: flightServiceMock
+        },
+        provideMockStore({
+          initialState: { flightBooking: { flights: [] }},
+          selectors: [
             {
-              provide: FlightService,
-              useValue: flightServiceMock
+              selector: selectFlights,
+              value: result
             }
           ]
-        }
-      })
-      .compileComponents();
+        }),
+      ]
+    })
+    .compileComponents();
 
     fixture = TestBed.createComponent(FlightSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should not load flights w/o from and to', () => {
-    component.from = '';
-    component.to = '';
-    component.search();
-
-    expect(component.flights.length).toBe(0);
-  });
-
-  it('should load flights w/ from and to', () => {
-      component.from = 'Hamburg';
-      component.to = 'Graz';
-      component.search();
-
-      expect(component.flights.length).toBeGreaterThan(0);
-  });
-
-  it('should have a disabled search button w/o params', fakeAsync(() => {
-    tick();
-
-    // Get input field for from
-    const from = fixture
-      .debugElement
-      .query(By.css('input[name=from]'))
-      .nativeElement;
-
-    from.value = '';
-    from.dispatchEvent(new Event('input'));
-
-    // Get input field for to
-    const to = fixture
-      .debugElement
-      .query(By.css('input[name=to]'))
-      .nativeElement;
-
-    to.value = '';
-    to.dispatchEvent(new Event('input'));
-
-    fixture.detectChanges();
-    tick();
-
-    // Get disabled
-    const disabled = fixture
-      .debugElement
-      .query(By.css('button'))
-      .properties['disabled'];
-
-    expect(disabled).toBeTruthy();
+  it('should return flights from Observable', fakeAsync(() => {
+    component.flights$.subscribe(
+      flights => expect(flights.length).toBeGreaterThan(0)
+    );
   }));
 });
