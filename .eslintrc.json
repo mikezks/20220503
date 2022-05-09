@@ -25,10 +25,7 @@
               },
               {
                 "sourceTag": "domain:boarding",
-                "onlyDependOnLibsWithTags": [
-                  "domain:boarding",
-                  "domain:shared"
-                ]
+                "onlyDependOnLibsWithTags": ["domain:boarding", "domain:shared"]
               },
               {
                 "sourceTag": "domain:external",
@@ -82,6 +79,10 @@
               {
                 "sourceTag": "domain:luggage",
                 "onlyDependOnLibsWithTags": ["domain:luggage", "domain:shared"]
+              },
+              {
+                "sourceTag": "domain:boarding",
+                "onlyDependOnLibsWithTags": ["domain:boarding", "domain:shared"]
               }
             ]
           }

@@ -1,0 +1,42 @@
+{
+  "projectType": "library",
+  "root": "libs/boarding/feature-check-ticket",
+  "sourceRoot": "libs/boarding/feature-check-ticket/src",
+  "prefix": "boarding",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["dist/libs/boarding/feature-check-ticket"],
+      "options": {
+        "project": "libs/boarding/feature-check-ticket/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/boarding/feature-check-ticket/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/boarding/feature-check-ticket/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/boarding/feature-check-ticket"],
+      "options": {
+        "jestConfig": "libs/boarding/feature-check-ticket/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/boarding/feature-check-ticket/src/**/*.ts",
+          "libs/boarding/feature-check-ticket/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["domain:boarding", "type:feature"]
+}
