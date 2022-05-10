@@ -6,6 +6,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Store } from '@ngrx/store';
 import { Observable, of, tap } from 'rxjs';
 import * as fromFlightBooking from '../+state';
+import { FlightSearchStoreService } from '../flight-search-store.service';
 
 
 export interface Filter {
@@ -30,7 +31,8 @@ export const initalLocalState: LocalState = {
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
   providers: [
-    ComponentStore
+    ComponentStore,
+    // FlightSearchStoreService
   ]
 })
 export class FlightSearchComponent implements OnInit {
