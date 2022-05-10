@@ -23,5 +23,4 @@ export const initalLocalState: LocalState = {
 } */)
 export class FlightSearchStoreService extends ComponentStore<LocalState> {
 
-  constructor() { }
 }

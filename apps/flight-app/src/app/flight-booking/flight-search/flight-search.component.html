@@ -34,9 +34,8 @@
             Search
           </button>
 
-          <button *ngIf="state.flights?.length" class="btn btn-default"
-            >
-            <!-- (click)="delay(state.flights[0])" -->
+          <button *ngIf="state.flights && state.flights.length" class="btn btn-default"
+            (click)="delay(state.flights[0])">
             Delay 1st Flight
           </button>
 
