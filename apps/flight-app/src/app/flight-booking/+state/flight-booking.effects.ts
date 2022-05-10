@@ -8,7 +8,7 @@ import * as FlightBookingActions from './flight-booking.actions';
 @Injectable()
 export class FlightBookingEffects {
 
-  private _loadFlights$ = createEffect(() => this.actions$.pipe(
+  loadFlights$ = createEffect(() => this.actions$.pipe(
     ofType(FlightBookingActions.flightsLoad),
     switchMap(action => this.flightService.find(
         action.from,
@@ -19,14 +19,7 @@ export class FlightBookingEffects {
         catchError(err => of(FlightBookingActions.flightsLoadedFailure({ error: err })))
       )
     )
-  )
-  );
-  public get loadFlights$() {
-    return this._loadFlights$;
-  }
-  public set loadFlights$(value) {
-    this._loadFlights$ = value;
-  }
+  )/* , { dispatch: false } */);
 
   constructor(
     private actions$: Actions,
